@@ -10,6 +10,7 @@ import { PixiRenderer } from "./engine/scenemanager/renderers/PixiRenderer";
 import { DuckScene } from "./project/scenes/DuckScene";
 import { settings } from "pixi.js";
 import { DEFAULTS } from "tweedle.js";
+import { Box2DHelper } from "./engine/utils/Box2DHelper";
 
 settings.RENDER_OPTIONS.hello = false;
 
@@ -56,5 +57,13 @@ window.addEventListener("resize", () => {
 
 window.dispatchEvent(new Event("resize"));
 
-// Manager.changeScene(import(/* webpackPrefetch: true */ "./project/scenes/LoaderScene"));
-Manager.changeScene(DuckScene);
+const initializeCb = function (): void {
+	// Manager.changeScene(import(/* webpackPrefetch: true */ "./project/scenes/LoaderScene"));
+	Manager.changeScene(DuckScene);
+};
+
+if (ALL_FLAGS.USE_BOX2D) {
+	Box2DHelper.initialize().then(() => initializeCb());
+} else {
+	initializeCb();
+}

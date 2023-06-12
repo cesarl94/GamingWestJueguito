@@ -51,6 +51,7 @@
     "workbox-webpack-plugin": "6.5.4"
   },
   "dependencies": {
+    "@pixi/particle-emitter": "^5.0.8",
     "@pixi/sound": "5.1.1",
     "@pixi/ui": "^0.7.2",
     "box2d-wasm": "^7.0.0",

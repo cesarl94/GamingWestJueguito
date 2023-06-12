@@ -27,13 +27,17 @@ export class GraphicsHelper {
 		return retval;
 	}
 
-	public static pixel(color?: number, alpha?: number): Graphics {
-		return this.rectangle(new Rectangle(0, 0, 1, 1), color, alpha);
+	public static pixel(color?: number, alpha?: number, visible?: boolean): Graphics {
+		const rv: Graphics = this.rectangle(new Rectangle(0, 0, 1, 1), color, alpha);
+		if (visible != undefined) {
+			rv.visible = visible;
+		}
+		return rv;
 	}
 
 	public static roundedRect(width: number, height: number, radius: number, color?: number, alpha?: number): Graphics {
 		const rv: Graphics = new Graphics();
-		rv.beginFill(color ?? 0xff00ff, alpha ?? Number.EPSILON);
+		rv.beginFill(color ?? 0xff00ff, alpha ?? 1);
 		rv.moveTo(0, radius);
 		rv.lineTo(0, height - radius);
 		rv.arc(radius, height - radius, radius, 180 * DEG_TO_RAD, 90 * DEG_TO_RAD, true);
