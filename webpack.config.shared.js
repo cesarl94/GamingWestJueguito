@@ -173,7 +173,7 @@ exports.config = {
             // Can be used only for `errors`/`warnings`
             //
             overlay: {
-                errors: true,
+                errors: false,
                 warnings: false,
             },
             progress: true,

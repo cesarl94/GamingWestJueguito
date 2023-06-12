@@ -22,7 +22,7 @@ export function preventKeys(codes: string[] = [Key.UP_ARROW, Key.DOWN_ARROW, Key
 }
 
 export function forceFocus(): void {
-	// During AMU work it happened that touch events woudn't focus the body element of our iframe.
+	// It happened that touch events woudn't focus the body element of our iframe.
 	// without focus we can't lose it and trigger the blur event.
 	// this forces the touch event to give focus to our window.
 	document.addEventListener("click", () => window.focus());

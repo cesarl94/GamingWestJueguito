@@ -8,6 +8,6 @@ module.exports = {
         "@killabunnies/eslint-config"
     ],
     rules: {
-        "@typescript-eslint/consistent-type-imports": "error"
+        "@typescript-eslint/consistent-type-imports": "warn"
     }
 }

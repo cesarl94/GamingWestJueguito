@@ -3,8 +3,6 @@ export { VERSION as PIXI_VERSION } from "pixi.js";
 
 export const BUILD_DATE: string = process.env.DATE;
 export const DEBUG: boolean = process.env.NODE_ENV == "development";
-export const CSV_FROM_GOOGLE = true && DEBUG; // During the build process you get the latest csv from google at that time. This is only usefull for hot testing.
-
 export const SHOW_COLLIDERS: boolean = true && DEBUG;
 export const STATS: boolean = true && DEBUG;
 export const VERSION: string = p.version;
