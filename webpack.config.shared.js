@@ -93,32 +93,32 @@ const defaultCompression = new ImageminPlugin({
     minimizer: {
         implementation: ImageminPlugin.sharpMinify,
         options: {
-          encodeOptions: {
-            jpeg: {
-              // https://sharp.pixelplumbing.com/api-output#jpeg
-              quality: 90,
+            encodeOptions: {
+                jpeg: {
+                    // https://sharp.pixelplumbing.com/api-output#jpeg
+                    quality: 90,
+                },
+                webp: {
+                    // https://sharp.pixelplumbing.com/api-output#webp
+                    nearLossless: true,
+                },
+                avif: {
+                    // https://sharp.pixelplumbing.com/api-output#avif
+                    lossless: true,
+                },
+                png: {
+                    // https://sharp.pixelplumbing.com/api-output#png
+                    adaptiveFiltering: true,
+                    quality: 100,
+                    compressionLevel: 7,
+                },
+                gif: {
+                    // https://sharp.pixelplumbing.com/api-output#gif
+                    reoptimise: true
+                },
             },
-            webp: {
-              // https://sharp.pixelplumbing.com/api-output#webp
-              nearLossless: true,
-            },
-            avif: {
-              // https://sharp.pixelplumbing.com/api-output#avif
-              lossless: true,
-            },
-            png: {
-                // https://sharp.pixelplumbing.com/api-output#png
-                adaptiveFiltering: true,
-                quality: 100,
-                compressionLevel: 7,
-            },
-            gif: {
-                // https://sharp.pixelplumbing.com/api-output#gif
-                reoptimise:true
-            },
-          },
         },
-      },
+    },
 });
 
 
@@ -207,6 +207,10 @@ exports.config = {
             root: __dirname,
             src: path.resolve(__dirname, 'src'),
         },
+        fallback: {
+            path: false,
+            fs: false,
+        }
     },
     plugins: [
         providePlugin,
