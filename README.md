@@ -1,4 +1,5 @@
-Killabunnies' framework for make HTML5 videogames. The project is a boilerplate for make games using PixiJS.
+![Run Install](docs/images/bunnybox.png)
+### Killabunnies' framework for make HTML5 videogames. The project is a boilerplate for make games using PixiJS.
 
 The language used is TypeScript, and we recommend use Visual Studio Code for edit the code. Is necessary have installed NodeJS and NPM for install the dependencies.
 
