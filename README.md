@@ -118,10 +118,6 @@ const spr: Sprite = Sprite.from("package-1/bronze_1.png");
 
 And boila! The framework will load the atlas and the image for you!
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
 ## Links
 
 * BunnyBox page: https://bunnybox.games/
@@ -139,6 +135,7 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 
 TODOs :)\
+license\
 fonts\
 flags\
 tweens\
