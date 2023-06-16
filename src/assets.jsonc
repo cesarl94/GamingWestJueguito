@@ -74,7 +74,8 @@
 			"assets": {
 				"package 1 background": "./img/big_placeholder/background-1.jpg",
 				"big_background": "./img/big_placeholder/bg_game.png",
-				"mask_demo": "./img/big_placeholder/mask_demo@0.5x.png" // @0.5x means 50% of the original size, pixi will internally upscale and you will never know!
+				"mask_demo": "./img/big_placeholder/mask_demo@0.5x.png", // @0.5x means 50% of the original size, pixi will internally upscale and you will never know!
+				"fondo": "./img/fondo.png"
 			}
 		},
 		{

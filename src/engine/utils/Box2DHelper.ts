@@ -71,6 +71,7 @@ export class Box2DHelper extends utils.EventEmitter {
 			Box2DFactory()
 				.then((box2D: typeof Box2D & EmscriptenModule) => {
 					Box2DHelper.box2D = box2D;
+					console.log("get box2D", box2D);
 					resolve();
 				})
 				.catch((e) => {

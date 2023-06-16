@@ -1,76 +1,46 @@
-import { Timer } from "../../engine/tweens/Timer";
-import { SoundLib } from "../../engine/sound/SoundLib";
-import { StateMachineAnimator } from "../../engine/animation/StateMachineAnimation";
-import { Easing, Tween } from "tweedle.js";
-import i18next from "i18next";
+import { Container } from "pixi.js";
 import { Sprite } from "pixi.js";
-import { Texture } from "pixi.js";
 import { PixiScene } from "../../engine/scenemanager/scenes/PixiScene";
+import { Button } from "@pixi/ui";
+import { Manager } from "../..";
+import { ScaleHelper } from "../../engine/utils/ScaleHelper";
+import { GameScene } from "./GameScene";
 
 export class MenuScene extends PixiScene {
 	public static readonly BUNDLES = ["package-1", "sfx", "music"];
 
-	private anim: StateMachineAnimator;
+	private generalContainer: Container;
+	private playButton: Button;
+	private glow: Sprite;
 
 	constructor() {
 		super();
 
-		// how to get localized values:
-		console.log("The next string is localized:", i18next.t<string>("menu.title"));
-		console.log("The next string is also localized:", i18next.t<string>("settings.muteSFX"));
+		this.generalContainer = new Container();
+		this.addChild(this.generalContainer);
 
-		SoundLib.playMusic("music");
+		this.glow = Sprite.from("package-1/glow.png");
+		this.glow.anchor.set(0.5);
+		this.glow.alpha = 0.3;
+		this.generalContainer.addChild(this.glow);
 
-		const s: Sprite = Sprite.from("big_background");
-		this.addChild(s);
-		const t = new Tween(s);
-		t.to({ x: 300, y: 300, scale: { x: -1, y: -1 }, alpha: 0.25 }, 3000);
-		t.repeat(Infinity);
-		t.yoyo(true);
-		t.easing(Easing.Exponential.InOut);
-		t.start();
+		const playButtonSpr: Sprite = Sprite.from("package-1/btn_play.png");
+		playButtonSpr.anchor.set(0.5);
+		this.playButton = new Button(playButtonSpr);
 
-		let textAux;
-		const textArray: Texture[] = [];
-		for (let i = 0; i < 4; i++) {
-			textAux = Texture.from(`package-1/bronze_${i + 1}.png`, {}, true);
-			textArray.push(textAux);
-		}
-		for (let i = 3; i > 0; i--) {
-			textAux = Texture.from(`package-1/bronze_${i}.png`, {}, true);
-			textArray.push(textAux);
-		}
+		this.playButton.onPress.connect(() => {
+			Manager.changeScene(GameScene);
+		});
 
-		this.anim = new StateMachineAnimator(false);
-		this.anim.addState("hi", textArray, 5, true);
-		this.anim.anchor.set(0.5);
-
-		this.addChild(this.anim);
-
-		this.anim.position.set(300, 300);
-
-		this.anim.onFrameChange = (currentFrame) => {
-			this.anim.scale.x = currentFrame > 3 ? -1 : 1;
-		};
-
-		this.anim.interactive = true;
-		this.anim.on(
-			"pointerdown",
-			() => {
-				this.anim.stop();
-			},
-			this
-		);
-
-		const tim = new Timer();
-		tim.to(1000)
-			.start()
-			.onComplete(() => {
-				console.log("timer complete");
-			});
+		this.generalContainer.addChild(this.playButton.view);
 	}
 
-	public override update(dt: number): void {
-		this.anim.update(dt);
+	public override update(_dt: number): void {
+		this.glow.rotation += _dt * 0.0001;
+	}
+
+	public override onResize(_newW: number, _newH: number): void {
+		ScaleHelper.setScaleRelativeToScreen(this.generalContainer, _newW, _newH, 0.7, 0.7);
+		this.generalContainer.position.set(_newW / 2, _newH / 2);
 	}
 }
