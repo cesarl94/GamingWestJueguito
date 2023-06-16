@@ -1,13 +1,13 @@
 ![Run Install](docs/images/bunnybox.png)
-### Killabunnies' framework for make HTML5 videogames using PixiJS.
+## Killabunnies' framework for make HTML5 videogames using [PixiJS](https://pixijs.com/ "pixijs.com").
 
-This project is a boilerplate. The language used is TypeScript, and we recommend use Visual Studio Code for edit the code. Is necessary have installed NodeJS and NPM for install the dependencies.
+This project is a boilerplate. The language used is [TypeScript](https://www.typescriptlang.org/ "www.typescriptlang.org"), and we recommend use [Visual Studio Code](https://code.visualstudio.com/ "code.visualstudio.com") for edit the code. Is necessary have installed [NodeJS](https://nodejs.org/ "nodejs.org") and NPM for install the dependencies (NPM are included in NodeJS installation).
 
 ## How to install
 
-You will clone this project and use it as template. You can fork this project and use it as template for your own games easily, but we recommend clone the project. Here you have the instructions for clone the project:
+You will clone this project and use it as template. You can fork this project and use it as template for your own games easily, but we recommend clone the project. Here you have the instructions for clone:
 
-1. Create a new repository from GitHub, for example ``my-game-name``.
+1. Create a new repository from [GitHub](https://github.com/new "github.com/new"), for example ``my-game-name``.
 2. Go to the windows console and go to the folder where you have your projects, for example ``cd Documents\Projects``
 3. Clone the project with the command ``git clone git@github.com:Killabunnies/bunnybox.git my-game-name``
 4. Now go to the folder of the project with the command ``cd my-game-name``
@@ -50,7 +50,7 @@ You can also access both scenes, both at the execution level and in the code. To
 
 ### Demo Scenes:
 
-* DuckScene: is a demo of PixiJS, Pixi3D and Tweens from Tweedle.js. Shows also a magical masking effect. 
+* DuckScene: is a demo of PixiJS, [Pixi3D](https://pixi3d.org/ "pixi3d.org") and Tweens from [Tweedle.js](https://miltoncandelero.github.io/tweedle.js/ "miltoncandelero.github.io/tweedle.js"). Shows also a magical masking effect. 
 * MenuScene: is a demo that contains a StateMachineAnimator, a Timer, SoundLib, localizated strings, and a a pointer event. (you can delete all content of the class for reuse it as a real MenuScene)
 * I promise that I will create more demo scenes in the future :)
 
@@ -118,27 +118,30 @@ const spr: Sprite = Sprite.from("package-1/bronze_1.png");
 
 And boila! The framework will load the atlas and the image for you!
 
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
+## Links
+
+* BunnyBox page: https://bunnybox.games/
+* Our Discord: https://discord.gg/nxyVpsR7
+* PixiJS Documentation:
+	1. https://pixijs.download/dev/docs/index.html
+	2. https://api.pixijs.io/
+	3. https://www.pixijselementals.com/
+* Pixi3D: https://pixi3d.org/
+* PixiSound: https://www.npmjs.com/package/pixi-sound
+* Tweedle.js: https://miltoncandelero.github.io/tweedle.js/
+* Box2D js: 
+	1. https://www.npmjs.com/package/box2d-wasm
+	2. https://box2d.org/ (original)
 
 
-
-
-
-
-
-
-
-TODO :)\
+TODOs :)\
 fonts\
 flags\
 tweens\
-Documentacion\
-ejemplos\
-tutoriales
-
-documentacion de pixi
-link al discord
-link a la página
-link a la documentación de box2D
-links a node, a vs code, a tweedle, a pixi3D, a pixiSound
-mit licence
-nombrar a box2D
+Documentation\
+examples\
+tutorials
