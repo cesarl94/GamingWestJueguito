@@ -1,7 +1,7 @@
 ![Run Install](docs/images/bunnybox.png)
-### Killabunnies' framework for make HTML5 videogames. The project is a boilerplate for make games using PixiJS.
+### Killabunnies' framework for make HTML5 videogames using PixiJS.
 
-The language used is TypeScript, and we recommend use Visual Studio Code for edit the code. Is necessary have installed NodeJS and NPM for install the dependencies.
+This project is a boilerplate. The language used is TypeScript, and we recommend use Visual Studio Code for edit the code. Is necessary have installed NodeJS and NPM for install the dependencies.
 
 ## How to install
 
@@ -18,7 +18,7 @@ You will clone this project and use it as template. You can fork this project an
 
 Now we have the project cloned and ready to use, in the folder ``my-game-name``. We can open the project with Visual Studio Code, but first we must install the dependencies.
 
-You can install or update all dependencies with the command `npm install`. Also you can click with the right button of the mouse in the file `package.json` from the `NPM SCRIPTS` tab from the EXPLORER panel of VS Code and select `Run Install`. After that, you can run the project with `Run Start`.
+You can install or update all dependencies with the command `npm install`. Also you can click with the right button of the mouse in the file `package.json` from the `NPM SCRIPTS` tab from the EXPLORER panel of VS Code and select `Run Install`.
 
 ![Run Install](docs/images/NPMScripts.png)
 
@@ -35,26 +35,110 @@ You can see another options in the panel `NPM SCRIPTS` from the EXPLORER panel o
 
 ## How to use the framework
 
-First we will explore the structure of the project. The main folder of the framework contains the following subfolders:
+First will explore the structure of the project. The main folder of the framework contains the following subfolders:
 * assets: here you will put almost all your assets in the corresponding folder depending on the type of asset (images, fonts, music, sfx, etc.) 
-* atlas: Here you will find more subfolders, **its important that you dont put any image here** except folders. You can create the folders that you want, and inside of them you will put the images that you want to pack in a texture atlas. All the images used in a scene should living in the same folder. The images must be smaller than 2048 x 2048. If you need a image bigger than 2048 x 2048, you can put it in the folder `assets/images` and it will be loaded as a normal image.
-* src: here you will put your code
+* atlas: Here you will find more subfolders, **its important that you dont put any image here** except more folders. Inside of this folders you will put the images that you want to pack in a texture atlas. All the images used in a scene should living in the same folder. The images must be smaller than 2048 x 2048. If you need a image bigger than 2048 x 2048, you can put it in the folder `assets/images` and it will be loaded as a normal image.
+* src: here we have three subfolders, but only two are important for us. The folder `engine` contains the code of the framework, tools and utils. You don't have to touch the code inside this folder, but you are free to modify according to your needs. The folder `project` will contains the code of your game. So here you will create the folders and files that you want for your game.
+* node_modules: **you mustn't modify anything inside this folder. It's required for Node.js**
 
 
 The framework is based on the use of scenes. Each scene is a class that extends from the class `PixiScene`. We can see an example of a scene in the files `src/project/scenes/DuckScene.ts` or `src/project/scenes/MenuScene.ts`. The scenes are managed by the class `SceneManager`. The SceneManager is the responsible of open and switch between scenes and popups. Also we can use transitions between Scenes.
 
-The point of entry of the project is the file `src/index.ts`. Here you can see the initialization of the game, the creation of the SceneManager and the first scene that will be opened, the DuckScene 🦆, with a demo of PixiJS and Pixi3D
+The point of entry of the project is the file `src/index.ts`. Here you can see the initialization of the game, the creation of the SceneManager and the first scene that will be opened, the DuckScene 🦆, that is a demo scene along with the MenuScene. You can delete the DuckScene and the MenuScene and create your own scenes but it's recommended that you keep the MenuScene as a template for your own scenes.
+
+You can also access both scenes, both at the execution level and in the code. To see what they do and how they do it.
+
+### Demo Scenes:
+
+* DuckScene: is a demo of PixiJS, Pixi3D and Tweens from Tweedle.js. Shows also a magical masking effect. 
+* MenuScene: is a demo that contains a StateMachineAnimator, a Timer, SoundLib, localizated strings, and a a pointer event. (you can delete all content of the class for reuse it as a real MenuScene)
+* I promise that I will create more demo scenes in the future :)
+
+## Assets
+
+Any asset you want to add to the project, besides having it added in the asset folder and its corresponding subfolder, you will need to declare it in the assets.jsonc file so that the framework's loader can load it correctly. The file itself will guide you on how to declare the files with the comments inside.
+
+Inside the assets.jsonc file you will include all your assets in a bundles. With this bundles you can load your game by parts. For example: a bundle for a MenuScene assets, a bundle for a GameScene assets, so you can reduce the loading time of your game dividing the loading time by scenes.
+
+After knowing that you must include what bundles you will include in your scenes declarating them in your PixiScene class with the next format:
+
+```typescript
+export class MenuScene extends PixiScene {
+	public static readonly BUNDLES = ["music", "package-1"];
+    ...
+}
+```
+
+And inside of your assets.jsonc have this:
+
+```jsonc
+{
+	"bundles": [
+		{
+			"name": "music",
+			"assets": {
+				"music": "./music/musical.mp3"
+			}
+		},
+		{
+			"name": "package-1",
+			"assets": {
+				"big_background": "./img/big_placeholder/bg_game.png",
+			}
+		}
+	]
+}
+```
+
+And the atlas will appear into a package with the same name automatically also!
+
+You can use a image from assets/img or from a subfolder of atlas but next we will explain how works the atlas
+
+## Atlas
+
+The texture atlas is one or more images generated by merging the assets contained in the atlas subfolders. The result of the merge will not be visible in a folder, not even to the developer, as both the transformation of the assets into an atlas and the identification of their coordinates within the texture atlas will be done automatically. It is important to note that texture atlases have a maximum resolution of 2048x2048. So, if you want to use an image with a higher resolution, you should place it in the assets/img folder.
+
+If it is a large image, such as a background, or an image that needs to be tiled, like a TilingSprite, you are probably trying to load the image from assets.
+
+For other cases of images, it is recommended to place them in the atlas folder.
+
+How to use one method or the other?
+
+If you want to load a Sprite from assets, you need to declare it in assets.jsonc within the bundle (which you should declare in your PixiScene, don't forget!), and then instantiate it from the code in the following way:
+
+```typescript
+const spr: Sprite = Sprite.from("big_background");
+```
+
+Now if you want to load a Sprite from the atlas, you don't need to declare it in assets. Instead, you simply instantiate it from the code in the following way:
+
+```typescript
+const spr: Sprite = Sprite.from("package-1/bronze_1.png");
+```
+
+And boila! The framework will load the atlas and the image for you!
+
+
+
+
+
+
+
 
 
 
 TODO :)\
 fonts\
-assets\
-scene manager\
-src\
-atlas\
 flags\
 tweens\
 Documentacion\
 ejemplos\
 tutoriales
+
+documentacion de pixi
+link al discord
+link a la página
+link a la documentación de box2D
+links a node, a vs code, a tweedle, a pixi3D, a pixiSound
+mit licence
+nombrar a box2D
